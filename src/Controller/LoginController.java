@@ -1,4 +1,4 @@
-package com.example.curavibe_desktop;
+package Controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -40,24 +40,26 @@ public class LoginController implements Initializable {
     private PasswordField password;
 
     private Connection con;
-    private SceneManager sceneManager;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        File brandingFile = new File("img/logo.png");
+        File brandingFile = new File("src/img/logo.png");
         Image brandingImage = new Image(brandingFile.toURI().toString());
         brandingImageView.setImage(brandingImage);
 
-        File MailFile = new File("img/mail.png");
-        Image MailImage = new Image(MailFile.toURI().toString());
-        mail.setImage(MailImage);
+        File mailFile = new File("src/img/mail.png");
+        Image mailImage = new Image(mailFile.toURI().toString());
+        mail.setImage(mailImage);
 
-        File MPFile = new File("img/padlock.png");
+        File MPFile = new File("src/img/padlock.png");
         Image MPImage = new Image(MPFile.toURI().toString());
         MP.setImage(MPImage);
 
+    }
 
-
+    public void initData(String email) {
+        // Use the received email data as needed
+        Email.setText(email);
     }
 
     @FXML
@@ -78,20 +80,25 @@ public class LoginController implements Initializable {
             st.setString(2, pass);
             rs = st.executeQuery();
             if (rs.next()) {
-                String userType = rs.getString("type_compte");
+                System.out.println("User found: " + rs.getString("email")); // Debugging statement
+                UserSession.getInstance().setUserEmail(email); // Set the user email in the session
+
+                // Verify if the email is set in the UserSession
+                System.out.println("Email set in session: " + UserSession.getInstance().getUserEmail());
+                // Set the user email in the session
+
+                String userType = rs.getString("role");
+                Parent root;
                 if ("admin".equals(userType)) {
-                    Parent root = FXMLLoader.load(getClass().getResource("DashbordeStat.fxml"));
-                    Scene scene = new Scene(root);
-                    Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-                    stage.setScene(scene);
-                    stage.show();
+                    root = FXMLLoader.load(getClass().getResource("/views/Medicaments.fxml"));
                 } else {
-                    Parent root = FXMLLoader.load(getClass().getResource("Profil.fxml"));
-                    Scene scene = new Scene(root);
-                    Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-                    stage.setScene(scene);
-                    stage.show();
+                    root = FXMLLoader.load(getClass().getResource("/views/Profil.fxml"));
                 }
+
+                Scene scene = new Scene(root);
+                Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
             } else {
                 loginMessageLabel.setText("E-mail ou mot de passe incorrect");
             }
@@ -104,7 +111,7 @@ public class LoginController implements Initializable {
 
     @FXML
     private void goToSignUp() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Register.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/Register.fxml"));
         Scene scene = new Scene(root);
         Stage stage = (Stage) brandingImageView.getScene().getWindow();
         stage.setScene(scene);
@@ -113,9 +120,8 @@ public class LoginController implements Initializable {
 
     @FXML
     private void PasswordN() throws IOException {
-
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("ResettPassword.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/views/ResettPassword.fxml"));
             Scene scene = new Scene(root);
             Stage stage = (Stage) brandingImageView.getScene().getWindow();
             stage.setScene(scene);
@@ -124,13 +130,5 @@ public class LoginController implements Initializable {
             e.printStackTrace();
             // Handle the error appropriately, e.g., show an error message to the user
         }
-    }
-    private String userEmail;
-    public void initData(String userEmail) {
-        this.userEmail = userEmail;
-    }
-
-    public void setSceneManager(SceneManager sceneManager) {
-        this.sceneManager = sceneManager;
     }
 }

@@ -1,4 +1,4 @@
-package com.example.curavibe_desktop;
+package Controller;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -123,6 +123,7 @@ public class dashboardController implements Initializable {
         total_userDonChart.getData().clear();
         String sql = "SELECT created_at, COUNT(id) FROM don WHERE quantite GROUP BY created_at ORDER BY TIMESTAMP(created_at) ASC LIMIT 5";
         updateChart(total_userDonChart, sql);
+
     }
 
     public void updateUserRecycleChart() {
@@ -224,7 +225,7 @@ public class dashboardController implements Initializable {
 
     public void logout(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Login.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -234,6 +235,43 @@ public class dashboardController implements Initializable {
             e.printStackTrace();
         }
     }
+    public void handleUserButtonAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/GestionUtilisateur.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void handleMedicamentButtonAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Medicaments.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void handleStatsButtonAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/DashbordeStat.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void close() {
         System.exit(0);
@@ -266,10 +304,6 @@ public class dashboardController implements Initializable {
     }
 
 
-    @FXML
-    private void handleMedicamentButtonAction(ActionEvent event) {
-        loadPage("Medicament.fxml", event);
-    }
 
     @FXML
     private void handleUsersButtonAction(ActionEvent event) {

@@ -1,4 +1,4 @@
-package com.example.curavibe_desktop;
+package Controller;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

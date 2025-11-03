@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="1100.0" stylesheets="@../values/dashboardDesignA.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MedicamentController">
+    <children>
+        <AnchorPane prefHeight="35.0" prefWidth="1100.0" styleClass="top-form" stylesheets="@../values/dashboardDesignA.css">
+            <children>
+                <Label layoutX="40.0" layoutY="9.0" text="Curavibe dashbord">
+                    <font>
+                        <Font name="Tahoma" size="14.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+        <AnchorPane prefHeight="585.0" prefWidth="1100.0">
+            <children>
+                <AnchorPane layoutY="29.0" prefHeight="555.0" prefWidth="205.0" stylesheets="@../values/dashboardDesignA.css">
+                    <children>
+                        <Label layoutX="79.0" layoutY="125.0" text="Admin" textFill="WHITE">
+                            <font>
+                                <Font name="Tahoma" size="17.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="username" alignment="CENTER" layoutX="9.0" layoutY="146.0" prefHeight="23.0" prefWidth="188.0" text="CURAVIBE!" textFill="WHITE">
+                            <font>
+                                <Font name="Arial Bold" size="20.0" />
+                            </font>
+                        </Label>
+                        <Line endX="73.0" layoutX="116.0" layoutY="190.0" startX="-100.0" stroke="WHITE" />
+                        <JFXButton layoutX="14.0" layoutY="221.0" onAction="#handleUserButtonAction" minWidth="13.0" prefHeight="55.0" prefWidth="170.0" ripplerFill="WHITE" styleClass="nav-btn" stylesheets="@../values/dashboardDesign.css" text="Gestion Utilisateur">
+                            <font>
+                                <Font name="System Bold" size="36.0" />
+                            </font>
+
+                        </JFXButton>
+                        <JFXButton layoutX="13.0" layoutY="292.0" onAction="#handleMedicamentButtonAction" prefHeight="55.0" prefWidth="197.0" ripplerFill="WHITE" styleClass="nav-btn" stylesheets="@../values/dashboardDesign.css" text=" Gestion Médicament">
+                            <font>
+                                <Font name="System Bold" size="24.0" />
+                            </font>
+
+                        </JFXButton>
+                        <JFXButton layoutX="12.0" layoutY="356.0" onAction="#handleStatsButtonAction" prefHeight="55.0" prefWidth="197.0" ripplerFill="WHITE" styleClass="nav-btn" stylesheets="@../values/dashboardDesign.css" text="Statistique">
+                            <font>
+                                <Font name="System Bold" size="24.0" />
+                            </font>
+
+                        </JFXButton>
+                        <JFXButton layoutX="12.0" layoutY="488.0" onAction="#logout" prefHeight="55.0" prefWidth="197.0" ripplerFill="WHITE" styleClass="nav-btn" stylesheets="@../values/dashboardDesign.css" text="Déconnexion">
+                            <font>
+                                <Font name="System Bold" size="24.0" />
+                            </font>
+                        </JFXButton>
+                        <ImageView fitHeight="81.0" fitWidth="116.0" layoutX="45.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+                    </children>
+                    <styleClass>
+                        <String fx:value="nav-form" />
+                        <String fx:value="shadow" />
+                    </styleClass>
+                </AnchorPane>
+                <AnchorPane layoutX="220.0" layoutY="34.0" prefHeight="517.0" prefWidth="866.0" stylesheets="@../values/dashboardDesignA.css">
+                    <styleClass>
+                        <String fx:value="white-bg" />
+                        <String fx:value="shadow" />
+                    </styleClass>
+                    <children>
+                        <TableView fx:id="table" layoutX="252.0" layoutY="74.0" onMouseClicked="#getData" prefHeight="346.0" prefWidth="600.0">
+                            <columns>
+                                <TableColumn fx:id="colid" prefWidth="38.0" text="id" />
+                                <TableColumn fx:id="colNom" prefWidth="109.0" text="Nom" />
+                                <TableColumn fx:id="colDosage" prefWidth="62.0" text="Dosage" />
+                                <TableColumn fx:id="colForme" prefWidth="111.0" text="Forme" />
+                                <TableColumn fx:id="colDCI" prefWidth="76.0" text="DCI" />
+                                <TableColumn fx:id="colClasse" prefWidth="96.0" text="Classe" />
+                                <TableColumn fx:id="colAMM" minWidth="0.0" prefWidth="104.800048828125" text="AMM" />
+                            </columns>
+                        </TableView>
+                        <Label layoutX="339.0" layoutY="14.0" text="Gestions Medicaments">
+                            <font>
+                                <Font name="Arabic Typesetting" size="36.0" />
+                            </font>
+                        </Label>
+                        <VBox layoutX="42.0" layoutY="94.0" prefHeight="306.0" prefWidth="197.0" stylesheets="@../values/dashboardDesignA.css">
+                            <children>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nom" />
+                                <TextField fx:id="tNom" />
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Dosage" />
+                                <TextField fx:id="tDosage" />
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Forme" />
+                                <TextField fx:id="tForme" stylesheets="@../values/dashboardDesignA.css" />
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="DCI" />
+                                <TextField fx:id="tDCI" />
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Classe" />
+                                <TextField fx:id="tClasse" />
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="AMM" />
+                                <TextField fx:id="tAMM" />
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Durée conservation" />
+                                <TextField fx:id="tDuree" />
+                            </children>
+                        </VBox>
+                        <ButtonBar layoutY="451.0" prefHeight="40.0" prefWidth="367.0">
+                            <buttons>
+                                <Button fx:id="btnSave" mnemonicParsing="false" onAction="#addMedicament" text="Enregistrer" />
+                                <Button fx:id="btnUpdate" mnemonicParsing="false" onAction="#updateMedicament" text="modifier" />
+                                <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#deleteMedicament" text="supprimer" />
+                                <Button fx:id="btnClear" mnemonicParsing="false" onAction="#clearField" text="effacer" />
+                            </buttons>
+                        </ButtonBar>
+                    </children>
+                </AnchorPane>
+            </children>
+        </AnchorPane>
+    </children>
+</StackPane>

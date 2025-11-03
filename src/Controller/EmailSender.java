@@ -1,4 +1,4 @@
-package com.example.curavibe_desktop;
+package Controller;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;

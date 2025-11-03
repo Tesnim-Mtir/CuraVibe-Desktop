@@ -1,8 +1,13 @@
-package com.example.final_version.Controllers;
+package Controller;
 
 
-import com.example.final_version.Models.Medicament;
-import com.example.final_version.Services.DBConnexion;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import model.Medicament;
+import Service.DBConnexion;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,11 +15,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 
+import javafx.scene.input.MouseEvent;
+
+
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -80,6 +85,9 @@ public class MedicamentController implements Initializable {
 
     @FXML
     private TableView<Medicament> purchase_tableView;
+    public MedicamentController() {
+        // Your default constructor logic here (if needed)
+    }
 
     public MedicamentController(TableColumn<Medicament, Integer> colDuree) {
         this.colDuree = colDuree;
@@ -96,19 +104,18 @@ public class MedicamentController implements Initializable {
         ObservableList <Medicament> list = getMedicaments();
         table.setItems(list);
         colid.setCellValueFactory(new PropertyValueFactory<Medicament,Integer> ("id"));
-        colNom.setCellValueFactory(new PropertyValueFactory<Medicament,String>("Nom"));
+        colNom.setCellValueFactory(new PropertyValueFactory<Medicament,String>("nom"));
         colDosage.setCellValueFactory(new PropertyValueFactory<Medicament,String>("Dosage"));
         colForme.setCellValueFactory(new PropertyValueFactory<Medicament,String>("Forme"));
         colDCI.setCellValueFactory(new PropertyValueFactory<Medicament,String>("DCI"));
         colClasse.setCellValueFactory(new PropertyValueFactory<Medicament,String>("Classe"));
         colAMM.setCellValueFactory(new PropertyValueFactory<Medicament,String>("AMM"));
-        colDuree.setCellValueFactory(new PropertyValueFactory<Medicament,Integer>("Durée"));
     }
 
     private ObservableList<Medicament> getMedicaments() {
         ObservableList<Medicament> medicaments = FXCollections.observableArrayList();
 
-        String query = "select * from medicaments";
+        String query = "select * from medicament";
         con = DBConnexion.getCon();
         try {
             st=con.prepareStatement(query);
@@ -116,13 +123,12 @@ public class MedicamentController implements Initializable {
             while (rs.next()){
                 Medicament md = new Medicament();
                 md.setId(rs.getInt("id"));
-                md.setNom(rs.getString("Nom"));
+                md.setNom(rs.getString("nom"));
                 md.setDosage(rs.getString("Dosage"));
                 md.setForme(rs.getString("Forme"));
                 md.setDCI(rs.getString("DCI"));
                 md.setClasse(rs.getString("Classe"));
                 md.setAMM(rs.getString("AMM"));
-                md.setDuree(Integer.parseInt(rs.getString("Duree")));
                 medicaments.add(md);
 
             }
@@ -164,7 +170,7 @@ return medicaments;
 
     @FXML
     void addMedicament(ActionEvent event) {
-        String insert= "insert into medicaments ( Nom, Dosage, Forme, DCI, Classe, AMM, Duree) values (?,?,?,?,?,?,?)";
+        String insert= "insert into medicament ( nom, Dosage, Forme, DCI, Classe, AMM) values (?,?,?,?,?,?)";
         con = DBConnexion.getCon();
         try {
             st=con.prepareStatement(insert);
@@ -174,7 +180,6 @@ return medicaments;
             st.setString(4, tDCI.getText());
             st.setString(5, tClasse.getText());
             st.setString(6, tAMM.getText());
-            st.setString(7, tDuree.getText());
             st.executeUpdate();
             clear();
             showMedicaments();
@@ -192,7 +197,6 @@ return medicaments;
     tDCI.setText(medicament.getDCI());
     tClasse.setText(medicament.getClasse());
     tAMM.setText(medicament.getAMM());
-    tDuree.setText(String.valueOf(medicament.getDuree()));
     btnSave.setDisable(true);
     }
 
@@ -213,12 +217,11 @@ void clear (){
         tDCI.setText(null);
         tClasse.setText(null);
         tAMM.setText(null);
-        tDuree.setText(null);
         btnSave.setDisable(false);
 }
     @FXML
     void deleteMedicament(ActionEvent event) {
-    String delete = "delete from medicaments where id=?";
+    String delete = "delete from medicament where id=?";
     con = DBConnexion.getCon();
         try {
             st=con.prepareStatement(delete);
@@ -231,10 +234,55 @@ void clear (){
         }
     }
 
-    @FXML
-    void logout(ActionEvent event) {
-
+    public void logout(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Login.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+    public void handleUserButtonAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/GestionUtilisateur.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void handleMedicamentButtonAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Medicaments.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void handleStatsButtonAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/DashbordeStat.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @FXML
     void minimize(ActionEvent event) {
@@ -253,7 +301,7 @@ void clear (){
 
     @FXML
     void updateMedicament(ActionEvent event) {
-    String update = "update medicaments set Nom=? ,Dosage=? , Forme=? , DCI=? ,Classe=? , AMM=? ,  Duree=?  ";
+    String update = "update medicament set nom=? ,Dosage=? , Forme=? , DCI=? ,Classe=? , AMM=? WHERE id=?  ";
     con=DBConnexion.getCon();
         try {
             st=con.prepareStatement(update);
@@ -263,8 +311,7 @@ void clear (){
             st.setString(4, tDCI.getText());
             st.setString(5, tClasse.getText());
             st.setString(6, tAMM.getText());
-            st.setString(7, tDuree.getText());
-           // st.setInt(8,id);
+            st.setInt(7,id);
             st.executeUpdate();
             clear();
             showMedicaments();
@@ -272,6 +319,8 @@ void clear (){
             throw new RuntimeException(e);
         }
     }
+
+
 
 
 }

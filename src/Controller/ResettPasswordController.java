@@ -1,4 +1,4 @@
-package com.example.curavibe_desktop;
+package Controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,6 +24,8 @@ import javax.mail.MessagingException;
 
 public class ResettPasswordController implements Initializable {
 
+
+
     @FXML
     private TextField emailField;
 
@@ -44,7 +46,11 @@ public class ResettPasswordController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         File brandingFile = new File("img/logo.png");
         Image brandingImage = new Image(brandingFile.toURI().toString());
-        brandingImageView.setImage(brandingImage);}
+        brandingImageView.setImage(brandingImage);
+
+    }
+
+
 
     @FXML
     void sendCode(ActionEvent event) {
@@ -123,6 +129,7 @@ public class ResettPasswordController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
     private void loadLoginScene(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));

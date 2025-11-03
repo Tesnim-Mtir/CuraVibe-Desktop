@@ -1,4 +1,4 @@
-package com.example.final_version.Models;
+package model;
 
 public class Medicament {
 
@@ -67,11 +67,5 @@ public class Medicament {
         this.AMM = AMM;
     }
 
-    public int getDuree() {
-        return Duree;
-    }
 
-    public void setDuree(int duree) {
-        Duree = duree;
-    }
 }

@@ -1,7 +1,12 @@
 package Controller;
 
 
-import model.Medicament;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import model.Users;
 import Service.DBConnexion;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,6 +19,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -33,90 +39,72 @@ public class UtilisateurController implements Initializable {
 
     private Button btnSave;
 
-    @FXML
-    private Button btnUpdate;
-
-    @FXML
-    private Button close;
 
     @FXML
     private Button dashboard_btn;
 
 
-    @FXML
-    private TableColumn<Medicament, String> colAMM;
 
     @FXML
-    private TableColumn<Medicament, String> colClasse;
+    private TableColumn<Users, Integer> colEmail;
 
-    @FXML
-    private TableColumn<Medicament, String> colDCI;
 
-    @FXML
-    private TableColumn<Medicament, String> colDosage;
 
-    @FXML
-    private TableColumn<Medicament, Integer> colDuree;
-
-    @FXML
-    private TableColumn<Medicament, String> colForme;
-
-    @FXML
-    private TableColumn<Medicament, String> colNom;
-
-    @FXML
-    private TableColumn<Medicament, Integer> colid;
 
 
     @FXML
-    private TableView<Medicament> purchase_tableView;
+    private TableColumn<Users, String> colNom;
+
+    @FXML
+    private TableColumn<Users, Integer> colid;
+
+
+    @FXML
+    private TableView<Users> purchase_tableView;
     public UtilisateurController() {
         // Your default constructor logic here (if needed)
     }
 
-    public UtilisateurController(TableColumn<Medicament, Integer> colDuree) {
-        this.colDuree = colDuree;
+    public UtilisateurController(TableColumn<Users, Integer> colEmail) {
+        this.colEmail = colEmail;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        showMedicaments();
+        showUsers();
     }
 
 
 
-    public  void showMedicaments(){
-        ObservableList <Medicament> list = getMedicaments();
+    public  void showUsers(){
+        ObservableList <Users> list = getUsers();
         table.setItems(list);
-        colid.setCellValueFactory(new PropertyValueFactory<Medicament,Integer> ("id"));
-        colNom.setCellValueFactory(new PropertyValueFactory<Medicament,String>("name"));
-        colDosage.setCellValueFactory(new PropertyValueFactory<Medicament,String>("email"));
+        colid.setCellValueFactory(new PropertyValueFactory<Users,Integer> ("id"));
+        colNom.setCellValueFactory(new PropertyValueFactory<Users,String>("name"));
+        colEmail.setCellValueFactory(new PropertyValueFactory<Users, Integer>("email"));
     }
 
-    private ObservableList<Medicament> getMedicaments() {
-        ObservableList<Medicament> medicaments = FXCollections.observableArrayList();
+    private ObservableList<Users> getUsers() {
+        ObservableList<Users> users = FXCollections.observableArrayList();
 
         String query = "select * from users";
         con = DBConnexion.getCon();
         try {
             st=con.prepareStatement(query);
             rs= st.executeQuery();
-            while (rs.next()){
-                Medicament md = new Medicament();
-                md.setId(rs.getInt("id"));
-                md.setNom(rs.getString("name"));
-                md.setDosage(rs.getString("email"));
-                md.setForme(rs.getString("Forme"));
-                md.setDCI(rs.getString("DCI"));
-                md.setClasse(rs.getString("Classe"));
-                md.setAMM(rs.getString("AMM"));
-                medicaments.add(md);
+            while (rs.next()) {
+                Users user = new Users();
+                user.setId(rs.getInt("id"));
+                user.setName(rs.getString("name"));
+                user.setEmail(rs.getString("email"));
+
+                users.add(user);
 
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return medicaments;
+        return users;
     }
 
 
@@ -130,7 +118,7 @@ public class UtilisateurController implements Initializable {
     private TextField tDCI;
 
     @FXML
-    private TextField tDosage;
+    private TextField tEmail;
 
     @FXML
     private TextField tDuree;
@@ -139,86 +127,89 @@ public class UtilisateurController implements Initializable {
     private TextField tForme;
 
     @FXML
-    private TextField tNom;
+    private TextField tName;
 
 
 
     @FXML
-    private TableView<Medicament> table;
+    private TableView<Users> table;
     int id=0;
     @FXML
     private Label username;
 
-    @FXML
-    void addMedicament(ActionEvent event) {
-        String insert= "insert into medicament ( nom, Dosage, Forme, DCI, Classe, AMM) values (?,?,?,?,?,?)";
-        con = DBConnexion.getCon();
-        try {
-            st=con.prepareStatement(insert);
-            st.setString(1, tNom.getText());
-            st.setString(2, tDosage.getText());
-            st.setString(3, tForme.getText());
-            st.setString(4, tDCI.getText());
-            st.setString(5, tClasse.getText());
-            st.setString(6, tAMM.getText());
-            st.executeUpdate();
-            clear();
-            showMedicaments();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    @FXML
-    void getData(MouseEvent event) {
-        Medicament medicament= table.getSelectionModel().getSelectedItem();
-        id = medicament.getId();
-        tNom.setText(medicament.getNom());
-        tDosage.setText(medicament.getDosage());
-        tForme.setText(medicament.getForme());
-        tDCI.setText(medicament.getDCI());
-        tClasse.setText(medicament.getClasse());
-        tAMM.setText(medicament.getAMM());
-        btnSave.setDisable(true);
-    }
 
 
-    @FXML
-    void clearField(ActionEvent event) {
-        clear();
-    }
-
-    @FXML
-    void close(ActionEvent event) {
-
-    }
-    void clear (){
-        tNom.setText(null);
-        tDosage.setText(null);
-        tForme.setText(null);
-        tDCI.setText(null);
-        tClasse.setText(null);
-        tAMM.setText(null);
-        btnSave.setDisable(false);
-    }
     @FXML
     void deleteMedicament(ActionEvent event) {
-        String delete = "delete from medicament where id=?";
-        con = DBConnexion.getCon();
-        try {
-            st=con.prepareStatement(delete);
-            st.setInt(1,id);
-            st.executeUpdate();
-            clear();
-            showMedicaments();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        Users selectedUser = table.getSelectionModel().getSelectedItem();
+        if (selectedUser != null) {
+            int idToDelete = selectedUser.getId();
+            String delete = "delete from users where id=?";
+            con = DBConnexion.getCon();
+            try {
+                st = con.prepareStatement(delete);
+                st.setInt(1, idToDelete);
+                st.executeUpdate();
+                showUsers();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            // Handle case where no row is selected
+            // For example, display an error message
+            System.out.println("Please select a user to delete.");
         }
     }
 
-    @FXML
-    void logout(ActionEvent event) {
-
+    public void logout(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Login.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+    public void handleUserButtonAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/GestionUtilisateur.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void handleMedicamentButtonAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Medicaments.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void handleStatsButtonAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/DashbordeStat.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @FXML
     void minimize(ActionEvent event) {
@@ -233,27 +224,6 @@ public class UtilisateurController implements Initializable {
     @FXML
     void switchForm(ActionEvent event) {
 
-    }
-
-    @FXML
-    void updateMedicament(ActionEvent event) {
-        String update = "update medicament set nom=? ,Dosage=? , Forme=? , DCI=? ,Classe=? , AMM=?   ";
-        con=DBConnexion.getCon();
-        try {
-            st=con.prepareStatement(update);
-            st.setString(1, tNom.getText());
-            st.setString(2, tDosage.getText());
-            st.setString(3, tForme.getText());
-            st.setString(4, tDCI.getText());
-            st.setString(5, tClasse.getText());
-            st.setString(6, tAMM.getText());
-            // st.setInt(8,id);
-            st.executeUpdate();
-            clear();
-            showMedicaments();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
 

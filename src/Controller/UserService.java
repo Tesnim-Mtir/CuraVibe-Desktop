@@ -1,4 +1,4 @@
-package com.example.curavibe_desktop;
+package Controller;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

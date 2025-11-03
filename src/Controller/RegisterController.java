@@ -1,4 +1,4 @@
-package com.example.curavibe_desktop;
+package Controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,11 +11,6 @@ import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 
 import javafx.scene.control.Label;
-import javafx.scene.paint.Color;
-
-
-import com.example.curavibe_desktop.Connexion;
-
 import java.io.IOException;
 import java.sql.*;
 import java.util.ResourceBundle;
@@ -67,7 +62,7 @@ public class RegisterController implements Initializable {
     @FXML
     private Button cancelbutton;
     @FXML
-    private static final String IMAGE_PATH = "img/";
+    private static final String IMAGE_PATH = "src/img/";
     private Connection con;
     private SceneManager sceneManager;
 
@@ -96,7 +91,7 @@ public class RegisterController implements Initializable {
         return Pattern.matches(PHONE_REGEX, phone);
     }
     public void goToSignUp2(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+        root = FXMLLoader.load(getClass().getResource("/views/Login.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -166,7 +161,7 @@ public class RegisterController implements Initializable {
     }
     public void goToLogin(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Login.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
