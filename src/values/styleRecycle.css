@@ -1,0 +1,60 @@
+.menuItem:hover{
+    -fx-border-color: #660099;
+    -fx-border-width: 0px 0px 3px 0px;
+}
+
+.sidebarItem:hover{
+    -fx-background-color: #146886;
+    -fx-border-color: WHITE;
+    -fx-border-width: 0px 0px 0px 3px;
+}
+.right-bar{
+    -fx-background-color: #D3D3D3;
+}
+
+.add-btn{
+    -fx-background-color: #F02004;
+    -fx-background-radius: 100;
+}
+.add1-btn{
+    -fx-background-color: #0877D3;
+    -fx-background-radius: 100;
+}
+.add2-btn{
+    -fx-background-color: #04AC34;
+    -fx-background-radius: 100;
+}
+.add3-btn{
+    -fx-background-color: #F88A16;
+    -fx-background-radius: 100;
+}
+
+.chosen-fruit-card{
+    -fx-background-color: #777E80;
+    -fx-background-radius: 30;
+}
+.chosen1-fruit-card{
+   
+    -fx-background-radius: 30;
+}
+
+.fruit-item{
+    -fx-background-color: #FFFFFF;
+        -fx-background-radius: 30;
+}
+
+.shadow{
+    -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);
+}
+.transparent{
+    -fx-background-color: rgba(0,0,0,0);
+}
+
+.search-box{
+    -fx-background-color:#FFFFFF;
+    -fx-background-radius: 100;
+}
+.search-button{
+    -fx-background-color: #828282;
+    -fx-background-radius: 30;
+}
