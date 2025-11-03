@@ -79,7 +79,5 @@ Curavibe/
 
 ---
 
-## 🧑‍💻 Auteurs
 
-Projet développé par **Tasnim Mtir** dans le cadre de la promotion du **développement durable** et de la **santé numérique**.
 
