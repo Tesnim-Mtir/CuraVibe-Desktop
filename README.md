@@ -46,6 +46,8 @@ L’application aide à **réduire le gaspillage**, **suivre les traitements mé
 * **Base de données :** MySQL
 * **API externe :** Twilio (alertes SMS)
 
+🔗 Version Web Repository: [CuraVibe Web](https://github.com/Tesnim-Mtir/CuraVibe-pfa)
+
 ---
 
 ## 🚀 Fonctionnalités principales
@@ -80,5 +82,4 @@ Curavibe/
 ## 🧑‍💻 Auteurs
 
 Projet développé par **Tasnim Mtir** dans le cadre de la promotion du **développement durable** et de la **santé numérique**.
-🔗 Version Web Repository: [CuraVibe Web](https://github.com/Tesnim-Mtir/CuraVibe-pfa)
 
