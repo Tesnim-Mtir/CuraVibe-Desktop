@@ -11,7 +11,7 @@ Elle contribue activement aux **Objectifs de Développement Durable (ODD)** :
 
 L’application aide à **réduire le gaspillage**, **suivre les traitements médicaux** et **faciliter le don de produits non utilisés**.
 
-demo :  [CuraVibe desktop]([https://github.com/Tesnim-Mtir/CuraVibe-pfa](https://drive.google.com/file/d/1eAtO3zPZHbVVcN3LjlPDNRoyXSfLhG8l/view?usp=sharing )
+demo :[**CuraVibe desktop**](https://drive.google.com/file/d/1eAtO3zPZHbVVcN3LjlPDNRoyXSfLhG8l/view?usp=sharing)
 ---
 
 ## ⚠️ Problématiques
